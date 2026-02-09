@@ -1,0 +1,59 @@
+# GitLab CI/CD for CTC (React 19 + Vite)
+# Deploy: push code to GitLab, pipeline builds and publishes artifact.
+# For actual deploy to a server, add a deploy job (e.g. pages, or rsync/SSH).
+
+default:
+  image: node:20-alpine
+
+stages:
+  - install
+  - lint
+  - build
+  - deploy
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm
+    - node_modules
+
+install:
+  stage: install
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules
+      - .npm
+
+lint:
+  stage: lint
+  needs: [install]
+  script:
+    - npm run lint
+    - npm run format:check
+
+build:
+  stage: build
+  needs: [install]
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 week
+
+# Optional: deploy to GitLab Pages (uncomment and set public dir to dist)
+# pages:
+#   stage: deploy
+#   needs: [build]
+#   script:
+#     - mv dist public
+#   artifacts:
+#     paths:
+#       - public
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
