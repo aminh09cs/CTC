@@ -1,4 +1,17 @@
-# React + TypeScript + Vite
+# CTC
+
+React 19 + Vite + Tailwind + shadcn/ui + React Router + MSAL (Azure AD Authentication)
+
+## MSAL Setup
+
+1. Copy `.env.example` to `.env`
+2. Create an Azure AD App Registration and fill in:
+   - `VITE_AZURE_APP_CLIENT_ID` - Application (client) ID
+   - `VITE_AZURE_APP_TENANT_ID` - Directory (tenant) ID
+3. In Azure Portal, add Redirect URI: `http://localhost:5173/login` (and production URL when deploying)
+4. Enable ID tokens in App Registration > Authentication
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

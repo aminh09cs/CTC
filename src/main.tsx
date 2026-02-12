@@ -1,13 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { MsalAuthProvider } from '@/hooks/msal/auth'
 import './index.css'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <MsalAuthProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MsalAuthProvider>
   </StrictMode>,
 )
