@@ -1,4 +1,6 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '@/contexts/AuthContext'
+import { Button } from '@/components/ui/button'
 
 const PAGES = [
   { path: '/air', label: 'Air' },
@@ -9,6 +11,14 @@ const PAGES = [
 ] as const
 
 export function DashboardNavbar() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
     <nav className="relative flex h-14 w-full items-center justify-between bg-[#1e3a5f] px-6 shadow-md">
       {/* Subtle cityscape/pattern overlay */}
@@ -33,19 +43,28 @@ export function DashboardNavbar() {
           </NavLink>
         ))}
       </div>
-      <div className="relative flex items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-          <svg
-            viewBox="0 0 24 24"
-            className="h-5 w-5 text-white"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M12 4v16M4 8h16M4 16h16" strokeLinecap="round" />
-          </svg>
+      <div className="relative flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+            <svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5 text-white"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 4v16M4 8h16M4 16h16" strokeLinecap="round" />
+            </svg>
+          </div>
+          <span className="text-sm font-medium text-white/95">connectionstravel group</span>
         </div>
-        <span className="text-sm font-medium text-white/95">connectionstravel group</span>
+        <Button
+          size="sm"
+          onClick={handleLogout}
+          className="border-white/40 text-white hover:bg-white/15 hover:text-white cursor-pointer"
+        >
+          Logout
+        </Button>
       </div>
     </nav>
   )
