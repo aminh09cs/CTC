@@ -2,6 +2,25 @@
 
 React 19 + Vite + Tailwind + shadcn/ui + React Router + MSAL (Azure AD Authentication)
 
+
+## Quick Start
+
+**With npm:**
+```bash
+npm install
+npm run dev
+```
+→ http://localhost:5173
+
+**With Docker:**
+```bash
+docker build -t ctc-app .
+docker run -d -p 8080:80 --name ctc-app ctc-app
+```
+→ http://localhost:8080
+
+---
+
 ## MSAL Setup
 
 1. Copy `.env.example` to `.env`
