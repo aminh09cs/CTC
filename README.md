@@ -19,6 +19,12 @@ docker run -d -p 8080:80 --name ctc-app ctc-app
 ```
 → http://localhost:8080
 
+**Push to Docker Hub:**
+```bash
+docker tag ctc-app:latest USERNAME/ctc-app:latest
+docker push USERNAME/ctc-app:latest
+```
+
 ---
 
 ## MSAL Setup
